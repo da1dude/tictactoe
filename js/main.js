@@ -59,14 +59,15 @@ function init() {
 init()
 
 // function - renderBoard - render the game board
+//arrow function like connect4
 function renderBoard() {
-    board.forEach(function(boxVal, index) {
-        const boxEl = document.getElementById(index);
-        boxEl.style.backgroundColor = colors[boxVal];
-        console.log('squareEl value', boxEl);
-        //console.log('boxVal value', boxVal);
+    board.forEach((boxVal, index) => {
+        const boxEl = document.getElementById(index)
+        boxEl.style.backgroundColor = colors[boxVal]
+        console.log('squareEl value', boxEl)
+        console.log('boxVal value', boxVal)
         console.log('board array', board)
-    });
+    })
 }
 
 
@@ -97,22 +98,40 @@ function render() {
     renderMessage()
 }
 
-// handleDrop -> this will be the main gameplay function, finds the marker that was clicked on, and drops to the bottommost position allowed
+//handles the action of when the box is clicked. This is alot like handledrop connect4 other than figuring out the index
+//I glanced at the try not to peak for this. My idea wasnt exactly the same.
 function boxClicked(event) {
     // obtain index of box
     const index = event.target.id;  
     console.log("index clicked, should update array with 1/-1", index)
-    if (
+    if (board[index] || winner) return
         //if index taken or winner.. dont have winner working...
-        board[index] || winner
-    ) return;
     board[index] = turn; //fought with this... forgot to update array with the turn value
     console.log("board array status after each turn", board)
-    turn *= -1;
+    turn *= -1
     //winner = getWinner();
-    render();
+    render()
 }
 
+
+// 5.6) Set the winner variable if there's a winner:
+// 5.6.1) Loop through the each of the winning combination arrays defined.
+// 5.6.2) Total up the three board positions using the three indexes in the current combo.
+// 5.6.3) Convert the total to an absolute value (convert any negative total to positive).
+// 5.6.4) If the total equals 3, we have a winner! Set winner to the board's value at the index specified by the first index in the combo array. Exit the loop.
+// 5.7) If there's no winner, check if there's a tie:
+// 5.7.1) Set winner to 'T' if there are no more nulls in the board array.
+// 5.8) All state has been updated, so render the state to the page (step 4.2).
+
+// getWinner() {
+   /* ive tried to wrap my head around converting to absolute value
+        im just not sure what to do with it just because I dont understand how
+        it works.  I looked up math.abs on MDM and I guess it doesnt have great
+        examples to apply to this.
+
+        I think i could probably figured out how to use the connect 4 stratagy...
+        Ive spent too many hours attempting to figure it out. */
+// }
 
 
 
